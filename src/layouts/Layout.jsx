@@ -3,7 +3,9 @@ import React from 'react';
 const Layout =({children}) =>{
     return(
         <>
-        <main>{children}</main>
+        <div className='md:container md:mx-auto'>
+            <main>{children}</main>
+        </div>
         </>
     )
 }

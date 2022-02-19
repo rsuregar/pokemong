@@ -1,15 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import { useApi } from './config/useApi';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 import Layout from './layouts/Layout';
 import './App.css';
+import Home from './pages/Home';
+import Detail from './pages/Detail';
 
-function App() {
+const App = () => {
+
   return (
     <>
-    <Layout>
-      <h1>Wkwkwk</h1>
-    </Layout>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Layout><Home/></Layout>} />
+        <Route exact path="/:name" element={<Layout><Detail/></Layout>} />
+      </Routes>
+    </BrowserRouter>
     </>
   );
 }
