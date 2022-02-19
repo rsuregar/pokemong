@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import { colors } from '../apis/config/helper';
 import { GET_POKEMON, SPECIES } from '../apis/urlApi';
 import { fetchData } from '../apis/useApi';
 import Loading from '../components/Loading';
 import TabsRender from '../components/Tab';
+
 
 const Detail = () => {
     const { name } = useParams()
@@ -61,20 +63,19 @@ const Detail = () => {
         getPokemon();
     }, [name]);
 
-
     return(<>
     
         {loading ? <Loading/> : (
             <>
             
             <div className='flex justify-center mx-auto'>
-                <div className="max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div style={{ backgroundColor:colors[species.color] }} className="max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div className="lg:text-center">
-                    <img className="object-none object-center" src={pokemon.image} alt={pokemon.name} />
+                    <img className="rounded-t-lg" src={pokemon.image} alt={pokemon.name} />
                 </div>
                     <div className="p-5">
-                            <div className="uppercase tracking-wide text-3xl text-indigo-500 font-semibold">{pokemon.id}</div>
-                            <p className="mt-2 text-3xl leading-8 font-extrabold text-gray-900 sm:text-4xl capitalize tracking-wide">{pokemon.name}</p>
+                            <div style={{ color: species.color == 'white' ? 'black':'' }} className="uppercase tracking-wide text-3xl text-white font-bold">{pokemon.id}</div>
+                            <p style={{ color: species.color == 'white' ? 'black':'' }} className="mt-2 text-3xl leading-8 font-extrabold text-white drop-shadow-sm sm:text-4xl capitalize tracking-wide">{pokemon.name}</p>
                             <TabsRender species={species} pokemon={pokemon}/>
                     </div>
                 </div>

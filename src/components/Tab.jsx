@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { colors } from "../apis/config/helper";
 import { TYPE } from "../apis/urlApi";
 import { fetchData, imgUrl } from "../apis/useApi";
 import EvolutionCard from "./EvolutionCard";
+
 
 
 const Tabs = ({ color, data, evo, weakness, strength}) => {
@@ -166,6 +167,7 @@ const Tabs = ({ color, data, evo, weakness, strength}) => {
                 <div className='grid xl:grid-cols-3 gap-4 -mt-10'>
                     
                     <EvolutionCard 
+                    color={pokemon.name == evo.species ? colors['slate']:"" }
                     id={evo.url} 
                     name={evo.species}
                     level={evo.chain != null && evo.chain.evolution_details[0].min_level}
@@ -173,6 +175,7 @@ const Tabs = ({ color, data, evo, weakness, strength}) => {
                     {evo.chain != null && (
                         <>
                             <EvolutionCard 
+                            color={pokemon.name == evo.chain.species.name ? colors['slate']:"" }
                                 id={parseInt(evo.chain.species.url.match(/\/(\d+)\//)[1])} 
                                 name={evo.chain.species.name}
                                 level={evo.chain.evolves_to.length > 0 && evo.chain.evolves_to[0].evolution_details[0].min_level}
@@ -180,6 +183,7 @@ const Tabs = ({ color, data, evo, weakness, strength}) => {
                             {evo.chain.evolves_to.length > 0 && (
                                 <>
                                  <EvolutionCard 
+                                    color={pokemon.name == evo.chain.evolves_to[0].species.name ? colors['slate']:"" }
                                     id={parseInt(evo.chain.evolves_to[0].species.url.match(/\/(\d+)\//)[1])} 
                                     name={evo.chain.evolves_to[0].species.name}
                                     level={null}

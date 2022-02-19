@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { imgUrl } from '../apis/useApi';
 
 
 const EvolutionCard = (props) => {
-    const { id, name, level } = props;
+    const { id, name, level, color } = props;
+
+   
+
     return (
         <>
-        <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      
+        <div style={{ backgroundColor: color}} className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             <Link to={`/${name}`}>
                 <img className="h-48" src={`${imgUrl(id)}`} alt={name} />
             </Link>
