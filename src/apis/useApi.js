@@ -9,3 +9,7 @@ export const fetchData = async (getdata, good, bad) => {
     }
 }
 
+export const imgUrl = (id) => {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+}
+

@@ -37,9 +37,16 @@ const Home = () => {
     return(
     <>
     {loading ? <Loading loop={4} /> : (
+        <>
+        <div>
+      <span className="mb-2 text-2xl font-bold inline-block py-1 px-2 rounded-full text-pink-600 bg-pink-200">
+        Pokedex ({count})
+      </span>
+    </div>
       <div className='grid xl:grid-cols-4 gap-4 md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2'>
           {data.map(({id, name}) => (<Cardlist key={id} id={id} name={name}/>))}
       </div>
+      </>
     )}
     </>
     );
