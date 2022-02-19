@@ -36,7 +36,7 @@ const Home = () => {
     return(
     <>
     {loading ? <Loading loop={4} /> : (
-      <div className='grid grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-2'>
+      <div className='grid xl:grid-cols-4 gap-4 md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-2'>
           {data.map(({id, name}) => (<Cardlist key={id} id={id} name={name}/>))}
       </div>
     )}

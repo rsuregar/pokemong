@@ -15,7 +15,7 @@ const App = () => {
     <>
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Layout><Home/></Layout>} />
+        <Route exact path="/" element={<Layout home><Home/></Layout>} />
         <Route exact path="/:name" element={<Layout><Detail/></Layout>} />
       </Routes>
     </BrowserRouter>

@@ -1,11 +1,11 @@
 const Loading = (loop) => {
-console.log(loop)
-const looping = Array(loop.loop).fill('hai')
-console.table(looping)
+// console.log(loop)
+const looping = Array(loop.loop).fill('')
+// console.table(looping)
     return (
         <>
-        {looping.map((i) => (
-        <div key={i} className="border border-gray-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+        {looping.map((i, y) => (
+        <div key={y} className="border shadow rounded-md p-4 max-w-sm w-full mx-auto mb-3">
             <div className="animate-pulse flex space-x-4">
                 <div className="rounded-full bg-slate-200 h-10 w-10"></div>
                 <div className="flex-1 space-y-6 py-1">

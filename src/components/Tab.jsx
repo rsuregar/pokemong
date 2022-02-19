@@ -1,8 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { TYPE } from "../apis/urlApi";
+import { fetchData } from "../apis/useApi";
 
-const Tabs = ({ color, data }) => {
+
+const Tabs = ({ color, data, evo, weakness}) => {
   const [openTab, setOpenTab] =useState(1);
   const { species, pokemon } = data;
+  
+//   console.table(weakness);
 
   return (
     <>
@@ -78,6 +83,7 @@ const Tabs = ({ color, data }) => {
                     {species.text}
                   </p>
                     <h5>Color: {species.color}</h5>
+                    <h5 className="capitalize">Habitat: {(species.habitat).replace('-', ' ')}</h5>
                     <h5>Base Happiness: {species.happiness}</h5>
                     <h5>Capture Rate: {species.capture_rate}</h5>
                     <h5>Base Experience : {pokemon.base_experience}</h5>
@@ -90,6 +96,10 @@ const Tabs = ({ color, data }) => {
 
                     <h5>Height : {((pokemon.height) * 3.2808).toFixed(1)} ft ({(pokemon.height)} m )</h5>
                     <h5>Weight : {((pokemon.weight) *2.20462).toFixed(1)} lbs ({pokemon.weight} kg)</h5>
+                    
+                    <h5>Weakness {weakness.map((item, index) => {
+                        return(<span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.name}</span>)
+                    })}</h5>
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                     {pokemon.stats.map(({stat, base_stat}) => (
@@ -107,14 +117,27 @@ const Tabs = ({ color, data }) => {
                     ))}
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                  <p>
-                    Efficiently unleash cross-media information without
-                    cross-media value. Quickly maximize timely deliverables for
-                    real-time schemas.
-                    <br />
-                    <br /> Dramatically maintain clicks-and-mortar solutions
-                    without functional solutions.
-                  </p>
+                  <h5>{evo.species}</h5>
+                  <h5>{evo.chain != null && (
+                      <div>
+                          <p>Required level {'>'}{evo.chain.evolution_details[0].min_level}</p>
+                          <p>{evo.chain.species.name}</p>
+                          {evo.chain.evolves_to.length > 0 && (
+                              <>
+                              <p>Required level {'>'}{evo.chain.evolves_to[0].evolution_details[0].min_level}</p>
+                              <p>{evo.chain.evolves_to[0].species.name}</p>
+                              {evo.chain.evolves_to[0].evolves_to.length > 0 && (
+                                  <>
+                                  <p>Required level {'>'}{evo.chain.evolves_to[0].evolution_details[0].min_level}</p>
+                                  <p>{evo.chain.evolves_to[0].species.name}</p>
+                                  </>
+                              )}
+                              </>
+                          )}
+                          
+                          
+                      </div>
+                  )}</h5>
                 </div>
               </div>
             </div>
@@ -127,9 +150,42 @@ const Tabs = ({ color, data }) => {
 
 export default function TabsRender(props) {
     // console.log(props)
+    const { species, pokemon } = props;
+    const [evolutionChain, setEvolutionChain] = useState({});
+    const [weakness, setWeakness] = useState([]);
+
+    useEffect(() => {
+       console.log(pokemon.types[0].type.name)
+        const getWeaknesses = async () => {
+            await fetchData(`${TYPE}/${pokemon.types[0].type.name}`, (data) => {
+                setWeakness(data.damage_relations.double_damage_from);
+            }, (e) => {
+            console.log(e);
+            });
+        };
+        getWeaknesses();
+
+    }, [pokemon.types[0].type.name]);
+
+    useEffect(() => {
+        // console.log(species.evolution_chain)  
+        const getEvolution = async () => {
+            await fetchData(`${species.evolution_chain}`, (data) => {
+                const mapObject = (() => ({
+                    chain: data.chain.evolves_to[0],
+                    species: data.chain.species.name,
+                }))
+            // console.log(mapObject(data))
+            setEvolutionChain(mapObject(data));
+            }, (e) => {
+            console.log(e);
+            });
+        };
+        getEvolution();
+    }, [species.evolution_chain]);
   return (
     <>
-      <Tabs color="blue" data={props}/>
+      <Tabs color="blue" data={props} evo={evolutionChain} weakness={weakness}/>
     </>
   );
 }

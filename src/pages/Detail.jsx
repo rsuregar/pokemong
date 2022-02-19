@@ -1,11 +1,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { EVOLUTION, GET_POKEMON, SPECIES } from '../apis/urlApi';
+import { GET_POKEMON, SPECIES } from '../apis/urlApi';
 import { fetchData } from '../apis/useApi';
 import Loading from '../components/Loading';
 import TabsRender from '../components/Tab';
-import {color2} from '../config/color'
 
 const Detail = () => {
     const { name } = useParams()
@@ -21,14 +20,15 @@ const Detail = () => {
                     color: data.color.name,
                     habitat: data.habitat.name,
                     growth_rate: data.growth_rate.name,
-                    text: data.flavor_text_entries[0].flavor_text,
+                    text: data.flavor_text_entries.filter(x => x.language.name === 'en')[0].flavor_text,
                     happiness: data.base_happiness,
                     capture_rate: data.capture_rate,
                     evolves_from_species: data.evolves_from_species,
                     evolution_chain: data.evolution_chain.url,
                 }))
-                console.log(data)
+                console.log(mapObject(data))
                 setSpecies(mapObject(data));
+                localStorage.setItem('url', data.evolution_chain.url);
             }, (e) => {
               console.log(e);
             });
@@ -66,6 +66,7 @@ const Detail = () => {
     
         {loading ? <Loading/> : (
             <div>
+
                 <img src={pokemon.image} alt={pokemon.name} />
                 <h5>{pokemon.id}</h5>
                 <h5 className='text-xl font-bold text-center capitalize'>{name}</h5>
