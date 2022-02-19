@@ -3,11 +3,11 @@ import { TYPE } from "../apis/urlApi";
 import { fetchData } from "../apis/useApi";
 
 
-const Tabs = ({ color, data, evo, weakness}) => {
+const Tabs = ({ color, data, evo, weakness, strength}) => {
   const [openTab, setOpenTab] =useState(1);
   const { species, pokemon } = data;
   
-//   console.table(weakness);
+//   console.table(props);
 
   return (
     <>
@@ -88,17 +88,21 @@ const Tabs = ({ color, data, evo, weakness}) => {
                     <h5>Capture Rate: {species.capture_rate}</h5>
                     <h5>Base Experience : {pokemon.base_experience}</h5>
                     <h5>Abilities {pokemon.abilities.map((item, index) => {
-                        return(<span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.ability.name}</span>)
+                        return(<span className="capitalize bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{(item.ability.name).replace('-', ' ')}</span>)
                     })}</h5>
                     <h5>Types {pokemon.types.map((item, index) => {
-                        return(<span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.type.name}</span>)
+                        return(<span className="capitalize bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.type.name}</span>)
                     })}</h5>
 
                     <h5>Height : {((pokemon.height) * 3.2808).toFixed(1)} ft ({(pokemon.height)} m )</h5>
                     <h5>Weight : {((pokemon.weight) *2.20462).toFixed(1)} lbs ({pokemon.weight} kg)</h5>
                     
                     <h5>Weakness {weakness.map((item, index) => {
-                        return(<span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.name}</span>)
+                        return(<span className="capitalize bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.name}</span>)
+                    })}</h5>
+
+                    <h5>Strength {strength.map((item, index) => {
+                        return(<span className="capitalize bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800" key={index}>{item.name}</span>)
                     })}</h5>
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
@@ -153,9 +157,10 @@ export default function TabsRender(props) {
     const { species, pokemon } = props;
     const [evolutionChain, setEvolutionChain] = useState({});
     const [weakness, setWeakness] = useState([]);
+    const [strength, setStrength] = useState([]);
 
     useEffect(() => {
-       console.log(pokemon.types[0].type.name)
+    //    console.log(pokemon.types[0].type.name)
         const getWeaknesses = async () => {
             await fetchData(`${TYPE}/${pokemon.types[0].type.name}`, (data) => {
                 setWeakness(data.damage_relations.double_damage_from);
@@ -164,6 +169,15 @@ export default function TabsRender(props) {
             });
         };
         getWeaknesses();
+
+        const strength = async () => {
+            await fetchData(`${TYPE}/${pokemon.types[0].type.name}`, (data) => {
+                setStrength(data.damage_relations.double_damage_to);
+            }, (e) => {
+            console.log(e);
+            });
+        };
+        strength();
 
     }, [pokemon.types[0].type.name]);
 
@@ -185,7 +199,7 @@ export default function TabsRender(props) {
     }, [species.evolution_chain]);
   return (
     <>
-      <Tabs color="blue" data={props} evo={evolutionChain} weakness={weakness}/>
+      <Tabs color="blue" data={props} evo={evolutionChain} weakness={weakness} strength={strength}/>
     </>
   );
 }

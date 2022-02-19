@@ -10,8 +10,9 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [count, setCount] = useState(0);
     const [offset, setOffset] = useState(0);
-	  const [limit, setLimit] = useState(789);
+	  const [limit, setLimit] = useState(350);
     const [loading, setLoading] = useState(true);
+  
 
     const getPokemons = async () => {
         await fetchData(`${GET_POKEMON}?offset=${offset}&limit=${limit}`, (data) => {
