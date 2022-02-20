@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { colors } from '../apis/config/helper';
 import { GET_POKEMON, SPECIES } from '../apis/urlApi';
 import { fetchData } from '../apis/useApi';
@@ -70,6 +70,12 @@ const Detail = () => {
             
             <div className='flex justify-center mx-auto'>
                 <div style={{ backgroundColor:colors[species.color] }} className="max-w-3xl bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div className="container flex py-5 ml-5 flex-wrap justify-between items-center mx-auto">
+                        <Link to='/' className="flex">
+                        <svg fill="#FFFFFF" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+                        <span className="self-center text-lg font-semibold text-white whitespace-nowrap dark:text-white ml-3"> Back</span>
+                        </Link>
+                </div>
                 <div className="lg:text-center">
                     <img className="rounded-t-lg" src={pokemon.image} alt={pokemon.name} />
                 </div>

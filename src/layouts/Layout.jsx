@@ -6,7 +6,7 @@ const Layout =({home, children}) =>{
         <>
         <div className='md:container md:mx-auto px-12'>
 
-            {!home && (
+            {/* {!home && (
                 <nav className="mt-5 bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
                     <div className="container flex flex-wrap justify-between items-center mx-auto">
                         <Link to='/' className="flex">
@@ -15,7 +15,7 @@ const Layout =({home, children}) =>{
                         </Link>
                     </div>
                 </nav>
-            )}
+            )} */}
 
             <main className='mt-20'>{children}</main>
         </div>
