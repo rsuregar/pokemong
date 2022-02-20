@@ -8,17 +8,20 @@ import Layout from './layouts/Layout';
 import './App.css';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
+import { NetworkStatusProvider } from './utils/NetworkStatusProvider';
 
 const App = () => {
 
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Layout home><Home/></Layout>} />
-        <Route exact path="/:name" element={<Layout><Detail/></Layout>} />
-      </Routes>
-    </BrowserRouter>
+    <NetworkStatusProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Layout home><Home/></Layout>} />
+          <Route exact path="/:name" element={<Layout><Detail/></Layout>} />
+        </Routes>
+      </BrowserRouter>
+    </NetworkStatusProvider>
     </>
   );
 }

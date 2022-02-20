@@ -10,11 +10,9 @@ const EvolutionCard = (props) => {
 
     return (
         <>
-      
+      <Link to={`/${name}`}>
         <div style={{ backgroundColor: color}} className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <Link to={`/${name}`}>
-                <img className="h-48" src={`${imgUrl(id)}`} alt={name} />
-            </Link>
+            <img className="h-48" src={`${imgUrl(id)}`} alt={name} />
             <div className="p-5 text-center">
                 <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white capitalize">{name}</h5>
                 {level !=null && (
@@ -28,6 +26,7 @@ const EvolutionCard = (props) => {
                 
             </div>
         </div>
+        </Link>
         </>
     );
 }

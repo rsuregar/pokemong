@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { colors } from "../apis/config/helper";
+import { colors } from "../config/helper";
 import { TYPE } from "../apis/urlApi";
 import { fetchData, imgUrl } from "../apis/useApi";
 import EvolutionCard from "./EvolutionCard";
