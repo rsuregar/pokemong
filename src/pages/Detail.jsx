@@ -6,6 +6,10 @@ import { GET_POKEMON, SPECIES } from '../apis/urlApi';
 import { fetchData } from '../apis/useApi';
 import Loading from '../components/Loading';
 import TabsRender from '../components/Tab';
+import { useOnlineStatus } from '../utils/NetworkStatusProvider';
+import Toast from '../components/Toast';
+
+
 
 
 const Detail = () => {
@@ -14,6 +18,8 @@ const Detail = () => {
     const [pokemon, setPokemon] = useState({});
     const [species, setSpecies] = useState({});
     const [loading, setLoading] = useState(true);
+    const isOnline = useOnlineStatus();
+
 
     useEffect(() => {
         const getPokemonSpecies = async () => {
@@ -66,6 +72,8 @@ const Detail = () => {
     }, [name]);
 
     return(<>
+        
+        {isOnline ? "" : <Toast status="offline" text=""/>}
     
         {loading ? <Loading/> : (
             <>
