@@ -30,7 +30,7 @@ const Cardlist = (pokemonList) => {
             await fetchData(`${GET_POKEMON}/${name}`, (data) => {
                 const mapObject = (() => (data.types.map(x => x.type.name)))
                 setType(mapObject(data));
-                console.log(mapObject(data))
+                // console.log(mapObject(data))
             }, (e) => {
               console.log(e);
             });
@@ -45,7 +45,7 @@ const Cardlist = (pokemonList) => {
                 <img className="rounded-t-lg py-3 grayscale hover:grayscale-0" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`} alt={name}/>
                 <div className="p-5">
               
-                    <h5 style={{color:colour.color == 'white' ? '#708090':''}} className="mb-2 text-2xl font-bold tracking-wide text-white drop-shadow-md dark:text-white capitalize">{name}</h5>
+                    <h5 style={{color:colour.color === 'white' ? '#708090':''}} className="mb-2 text-2xl font-bold tracking-wide text-white drop-shadow-md dark:text-white capitalize">{name}</h5>
                     {type.map((item, index) => {
                         return(<span style={{ backgroundColor:types[item] }} className="capitalize text-white text-xs font-semibold mr-2 px-2.5 py-2 rounded" key={index}>{item}</span>)
                     })}

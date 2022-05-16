@@ -42,7 +42,7 @@ const Detail = () => {
         };
         getPokemonSpecies();
         localStorage.setItem('species', JSON.stringify(species));
-    }, [name]);
+    }, []);
 
     const getPokemon = async () => {
         await fetchData(`${GET_POKEMON}/${name}`, (data) => {   
@@ -69,7 +69,7 @@ const Detail = () => {
     useEffect(() => {
         getPokemon();
         localStorage.setItem('pokemons', JSON.stringify(pokemon));
-    }, [name]);
+    }, []);
 
     return(<>
         
@@ -90,8 +90,8 @@ const Detail = () => {
                     <img className="rounded-t-lg" src={pokemon.image} alt={pokemon.name} />
                 </div>
                     <div className="p-5">
-                            <div style={{ color: species.color == 'white' ? 'black':'' }} className="uppercase tracking-wide text-3xl text-white font-bold">{pokemon.id}</div>
-                            <p style={{ color: species.color == 'white' ? 'black':'' }} className=" mb-2 text-3xl leading-8 font-extrabold text-white drop-shadow-sm sm:text-4xl capitalize tracking-wide">{pokemon.name} </p>
+                            <div style={{ color: species.color === 'white' ? 'black':'' }} className="uppercase tracking-wide text-3xl text-white font-bold">{pokemon.id}</div>
+                            <p style={{ color: species.color === 'white' ? 'black':'' }} className=" mb-2 text-3xl leading-8 font-extrabold text-white drop-shadow-sm sm:text-4xl capitalize tracking-wide">{pokemon.name} </p>
                             {pokemon.types.map((item, index) => {
                         return(<span style={{ backgroundColor:types[item.type.name] }} className="capitalize text-white text-xs font-semibold mr-2 px-2.5 py-2 rounded" key={index}>{item.type.name}</span>)
                     })}

@@ -13,7 +13,7 @@ const Home = () => {
     let offset = 0;
     const [pokemon, setPokemon] = useState([]);
     const [count, setCount] = useState(0);
-	  const [limit, setLimit] = useState(8);
+	  const [limit] = useState(8);
     const [loading, setLoading] = useState(true);
     const isOnline = useOnlineStatus();
 
@@ -47,6 +47,7 @@ const Home = () => {
     useEffect(() => {
         getPokemons();
         window.addEventListener("scroll", handleScroll);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
     return(
